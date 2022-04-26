@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.ssafy.repository.MemDAOMybatisImpl">
+
+	<select id="listMember" resultType="MemDTO">
+		select id,pw,name,addr,age
+		from members
+	</select>
+
+	<select id="idCheck" parameterType="map" resultType="MemDTO">
+		select id, pw, name, addr, age from members where id=#{id}
+	</select>
+	
+	<select id="login" parameterType="map" resultType="MemDTO">
+		select id, pw, name, addr, age from members where id=#{id} and pw=#{pw} 
+	</select>
+	
+	<insert id="regMember" parameterType="MemDTO" >
+		insert into members (id,pw,name,addr,age) values(#{id},#{pw},#{name},#{addr},#{age})
+	</insert>
+	
+	<update id="updateMember" parameterType="MemDTO" >
+		update members set pw=#{pw} , name=#{name}, addr=#{addr}, age=#{age} where id=#{id}
+	</update>
+	
+	<delete id="deleteMember" parameterType="MemDTO" >
+		delete from members where id = #{id}
+	</delete>
+	
+	
+	
+	<select id="mapperTest1" parameterType="map"
+		resultType="MemDTO">
+		select id,pw,name,addr,age from members where age = #{age}
+	</select>
+
+	<select id="mapperTest2" parameterType="map"
+		resultType="MemDTO">
+		select id,pw,name,addr,age
+		from members
+		where 1
+		<choose>
+			<when test="condition eq 1">
+				and ${col1} = #{data1}
+			</when>
+			<when test="condition eq 2">
+				and ${col1} = #{data1}
+				and ${col2} = #{data2}
+			</when>
+			<when test="condition eq 3">
+				and ${col1} = #{data1}
+				and ${col2} = #{data2}
+				and ${col3} = #{data3}
+			</when>
+		</choose>
+	</select>
+</mapper>

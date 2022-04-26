@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd"><!-- document type definition -->
+
+<configuration>
+
+	<properties resource="dbinfo.properties"/>
+
+	<typeAliases>
+		<typeAlias type="com.ssafy.guestbook.model.GuestBookDto" alias="guestbook" />
+		<typeAlias type="com.ssafy.guestbook.model.MemberDto" alias="member"/>
+		<typeAlias type="com.ssafy.guestbook.model.FileInfoDto" alias="fileinfo" />
+	</typeAliases>
+	
+	<environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${dbid}"/>
+                <property name="password" value="${dbpwd}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    
+    <!--<environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="JNDI">
+                <property value="java:comp/env/jdbc/ssafy" name="data_source"/>
+            </dataSource>
+        </environment>
+    </environments>-->
+    
+    <mappers>
+		<mapper resource="guestbook.xml" />
+		<mapper resource="member.xml"/>
+	</mappers>
+	
+</configuration>

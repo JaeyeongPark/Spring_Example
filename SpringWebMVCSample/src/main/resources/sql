@@ -1,0 +1,15 @@
+CREATE TABLE `members` (
+  `id` varchar(100) NOT NULL,
+  `pw` varchar(100) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL,
+  `addr` varchar(1000) DEFAULT NULL,
+  `age` int DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
+
+
+CREATE TABLE `files` (
+  `no` int primary key auto_increment,
+  `path` varchar(100) DEFAULT NULL,
+  `name` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci
