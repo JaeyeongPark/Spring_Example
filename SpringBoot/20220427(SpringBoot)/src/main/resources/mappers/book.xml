@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- name space는 BookRepo의 fully qualified name으로 설정한다. -->
+<mapper namespace="com.ssafy.ws.model.repo.BookRepo">
+	<!-- Book 정보를 저장한다. -->
+	<insert id="insert" parameterType="Book">
+		<![CDATA[]]>
+		insert into book values(#{isbn}, #{title},#{author},
+		#{price},#{content},#{img})
+
+	</insert>
+
+	<!-- Book 정보를 삭제한다. -->
+	<insert id="delete" parameterType="string">
+		delete from book where isbn=#{isbn}
+	</insert>
+
+	<!-- Book 정보를 수정한다. -->
+	<insert id="update" parameterType="Book">
+		update book
+		set author=#{author}, title=#{title}, price = #{price}, content =
+		#{content}, img=#{img}
+		where isbn=#{isbn}
+	</insert>
+
+	<!-- Book 정보를 조회한다. -->
+	<select id="select" parameterType="string" resultType="Book">
+		select * from book where isbn=#{isbn}
+	</select>
+
+	<!-- Book에서 검색한다. -->
+	<select id="search" resultType="Book" parameterType="SearchCondition">
+		select * from book
+		<if test="key!='none'">
+			where ${key} like concat('%', #{word} ,'%')
+		</if>
+
+		<if test="orderBy!='none'">
+			order by ${orderBy} ${orderByDir}
+		</if>
+		<if test="limit">
+			limit #{offset} , #{countPerPage}
+		</if>
+	</select>
+
+	<!-- 검색 조건에 해당하는 데이터 건수를 반환한다. -->
+	<select id="getTotalSearchCount" resultType="int"
+		parameterType="SearchCondition">
+		select count(*) from book
+		<if test="key!='none'">
+			where ${key} like concat('%', #{word} ,'%')
+		</if>
+	</select>
+</mapper>
